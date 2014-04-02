@@ -1,20 +1,23 @@
 {
-  "name": "gulp-ngtemplates",
-  "description": "AngularJS template assembler for gulp",
-  "version": "0.1.2",
-  "homepage": "http://github.com/ceymard/gulp-ngtemplates",
+  "name": "gulp-angular-templates",
+  "description": "AngularJS template assembler for Gulp.js",
+  "version": "0.0.1",
+  "homepage": "http://github.com/RobbinHabermehl/gulp-angular-templates",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ceymard/gulp-ngtemplates"
+    "url": "git://github.com/RobbinHabermehl/gulp-angular-templates"
   },
   "author": {
-    "name": "Christophe Eymard",
-    "email": "christophe.eymard@gmail.com"
+    "name": "Robbin Habermehl",
+    "email": "robbin@habermehl.net"
   },
-  "main": "./ngtemplates.js",
+  "main": "./index.js",
   "keywords": [
     "gulpplugin",
-    "angularjs"
+    "angular",
+    "angularjs",
+    "template",
+    "templates"
   ],
   "dependencies": {
     "lodash": "~2.4.1",
@@ -25,6 +28,6 @@
     "node": ">= 0.10.0"
   },
   "bugs": {
-    "url": "https://github.com/ceymard/gulp-ngtemplates/issues"
+    "url": "https://github.com/RobbinHabermehl/gulp-angular-templates/issues"
   }
 }

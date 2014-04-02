@@ -1,61 +1,36 @@
-gulp-ngtemplates
-================
+# gulp-angular-templates
 
-This plugins allows you to bundle templates directly in your application using the `$templateCache` service.
+This plugins allows you to bundle templates directly in your application using the ```$templateCache``` service.
 
-Install it with `npm install --save-dev gulp-ngtemplates`
+Install it with ```npm install gulp-angular-templates --save-dev```.
 
-Unlike some of the other plugins, your template files are to be assembled into their own modules
-that your other modules have to require instead of registering them to your main application.
-
-Since the approach is a little more declarative, you can also declare several templates in a single file.
-
-Note that it will append '.js' to the generated file instead of replacing the extension to avoid conflicts
-with similarly named files.
-
-Example :
+## Usage
 
 ```javascript
-var ngtemplates = require('gulp-ngtemplates');
+var angularTemplates = require('gulp-angular-templates');
 
-gulp.task('compile-templates', function () {
-    return gulp.src('../src/**/*.html')
-        .pipe(ngtemplates())
+gulp.task('html', function () {
+    return gulp.src('app/partials/**/*.html')
+        .pipe(angularTemplates())
         .pipe(gulp.dest('./build/'));
 });
 ```
 
-Format of a template
-====================
+## API
 
-Declaring a module name is done with a `<module></module>` name. You may require any other module with `<require></require>`. Commas are supported in require nodes.
+### angularTemplates(options)
 
-Declaring a template is done with the `<template id="template-name"></template>` node.
+#### options.basePath
+Type: `String`
 
-```html
-<module>mywidget.templates</module>
-<require>mywidget.templates.somethingelse</require>
+The path that should be prefixed to the path that was specified using ```gulp.src```.
 
-<template id='mywidget-templates-something'>
-    <h1>Your imagination is the limit !</h1>
-</template>
+#### options.module
+Type: `String`
 
-<template id='mywidget-templates-anotherone'>
-    ...
-</template>
-```
+The name of the module that will be used.
 
-You can then use this module like so :
+#### options.standalone
+Type `Boolean`
 
-```javascript
-var module = angular.module('mywidget', [
-    'mywidget.templates'
-]);
-
-module.run(['$templateCache', function ($tc) {
-    // load the template
-    var tpl = $tc.get('mywidget-templates-something');
-}]);
-```
-
-Consider using this module alongside `gulp-ngcompile` since they were made together.
+Indicate whether the module name that was specified using ```options.module``` is intended to be standalone.

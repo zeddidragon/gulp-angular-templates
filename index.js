@@ -6,7 +6,6 @@ var cheerio = require('cheerio');
 var PluginError = gutil.PluginError;
 var File = gutil.File;
 
-
 function compile_html (file, opts) {
 
   var contents = file.contents.toString('utf-8');
@@ -58,23 +57,13 @@ function compile_html (file, opts) {
 
   var compiled_templates = [];
   _.each(templates, function (tpl) {
-    compiled_templates.push(_.template('\t\t\t$tc.put("<%= name %>",\n\t\t\t\t<%= contents %>\n\t\t\t);\n\n', {
-      name: tpl.name,
-      contents: tpl.contents
-    }));
+    compiled_templates.push("    $templateCache.put('"+(opts.basePath?opts.basePath:'')+tpl.name+"',\n        "+tpl.contents+");");
   });
 
-  var result = '(function (angular) {\n' +
-  _.template('\tvar mod = angular.module("<%= name %>", [<%= deps %>]);\n\n', {name: module_name, deps: deps}) +
-  '\tmod.run(["$templateCache", function ($tc) {\n\n' +
-    compiled_templates.join('') +
-  '\t}]);\n\n' +
-  '})(angular);';
+  var result = "angular.module('"+opts.module+"'"+(opts.standalone?'[]':'')+").run(['$templateCache', function($templateCache) {\n" + compiled_templates.join('\n') + "\n}]);";
 
   return result;
 };
-
-
 
 module.exports = function(opts){
   opts = _.merge({
@@ -102,7 +91,6 @@ module.exports = function(opts){
       contents: new Buffer(compiled)
     });
 
-    // console.log(newfile.cwd, newfile.path, newfile.base);
     stream.push(newfile);
     done();
   }
