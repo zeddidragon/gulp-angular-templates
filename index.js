@@ -61,6 +61,7 @@ function compile_html (file, opts) {
   });
 
   var result = "angular.module('"+opts.module+"'"+(opts.standalone?',[]':'')+").run(['$templateCache', function($templateCache) {\n" + compiled_templates.join('\n') + "\n}]);";
+  opts.standalone && (opts.standalone = false); //Only declare module the first time
 
   return result;
 };
