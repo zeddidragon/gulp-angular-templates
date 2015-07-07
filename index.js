@@ -60,7 +60,7 @@ function compile_html (file, opts) {
     compiled_templates.push("    $templateCache.put('"+(opts.basePath?opts.basePath:'')+tpl.name+"',\n        "+tpl.contents+");");
   });
 
-  var result = "angular.module('"+opts.module+"'"+(opts.standalone?'[]':'')+").run(['$templateCache', function($templateCache) {\n" + compiled_templates.join('\n') + "\n}]);";
+  var result = "angular.module('"+opts.module+"'"+(opts.standalone?',[]':'')+").run(['$templateCache', function($templateCache) {\n" + compiled_templates.join('\n') + "\n}]);";
 
   return result;
 };
